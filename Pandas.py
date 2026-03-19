@@ -35,5 +35,40 @@ print(dados_ibge['Sexo'].value_counts(normalize = True) * 100) # A mesma situaç
 frequencia = dados_ibge['Sexo'].value_counts()
 percentual = (dados_ibge['Sexo'].value_counts(normalize = True)) * 100
 
-dist_freq_qualitativas = pd.DataFrame({'Frequência': frequencia, 'Porcentagem (%)': percentual})
-print(dist_freq_qualitativas) # Criei variaveis para guardar esses dados, depois utilizer pd.DataFrame para criar uma tabela de dicionario para ficar mais formal a apresentação de dados.
+dist_freq_qualitativas = pd.DataFrame({'Frequência': frequencia, 'Porcentagem (%)': percentual}) # Criei variaveis para guardar esses dados, depois utilizer pd.DataFrame para criar uma tabela de dicionario para ficar mais formal a apresentação de dados.
+
+dist_freq_qualitativas.rename(index = {0: 'Masculino', 1: 'Feminino'}, inplace = True)
+dist_freq_qualitativas.rename_axis('Sexo', axis = 'columns', inplace = True) # Substituindo 0 e 1 por Masculino e Feminino em dicionario respectivamente, e utilizando inplace para salvar a sintaxe.
+print(dist_freq_qualitativas)
+
+
+sexo = {0: 'Masculino',
+        1: 'Feminino'}
+        
+cor = {0: 'Indígena',
+        2: 'Branca',
+        4: 'Preta',
+        6: 'Amarela',
+        8: 'Parda',
+        9: 'Sem declaração'} # Criação de dicionário com as colunas
+
+frequencia1 = pd.crosstab(dados_ibge.Sexo,
+                          dados_ibge.Cor)
+frequencia1.rename(index = sexo, inplace = True)
+frequencia1.rename(columns = cor, inplace = True)
+print(frequencia1)
+
+percentual1 = pd.crosstab(dados_ibge.Sexo,
+                          dados_ibge.Cor,
+                          normalize = True) * 100
+percentual1.rename(index = sexo, inplace = True)
+percentual1.rename(columns = cor, inplace = True)
+print(percentual1)
+
+percentual1 = pd.crosstab(dados_ibge.Sexo,
+                          dados_ibge.Cor,
+                          aggfunc = 'mean',
+                          values = dados_ibge.Renda)
+percentual1.rename(index = sexo, inplace = True)
+percentual1.rename(columns = cor, inplace = True)
+print(percentual1)
