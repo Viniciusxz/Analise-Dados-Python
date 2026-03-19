@@ -30,4 +30,10 @@ print('A menor idade é: ', dados_ibge.Idade.max())
 # - Exemplo: Altura = 1.75
 
 print(dados_ibge['Sexo'].value_counts()) # Aqui, uma sintaxe que irá pegar a coluna 'sexo' e contar quantos registros tem de feminino e masculino (1 e 0)
-print(dados_ibge['Sexo'].value_counts(normalize = True)) # A mesma situação que a sintaxe acima, mas nesse, o normalize irá criar uma diferença de porcentagem entre cada genero
+print(dados_ibge['Sexo'].value_counts(normalize = True) * 100) # A mesma situação que a sintaxe acima, mas nesse, o normalize irá criar uma diferença de porcentagem entre cada genero
+
+frequencia = dados_ibge['Sexo'].value_counts()
+percentual = (dados_ibge['Sexo'].value_counts(normalize = True)) * 100
+
+dist_freq_qualitativas = pd.DataFrame({'Frequência': frequencia, 'Porcentagem (%)': percentual})
+print(dist_freq_qualitativas) # Criei variaveis para guardar esses dados, depois utilizer pd.DataFrame para criar uma tabela de dicionario para ficar mais formal a apresentação de dados.
